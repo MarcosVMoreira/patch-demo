@@ -1,29 +1,2 @@
 server:
   port: 8080
-  servlet:
-    context-path: //v1/
-
-spring:
-  profiles:
-    active: ${PROFILES_ACTIVE:}
-
-logging:
-  file:
-    path: .
-    name: patch-demo.log
-  level:
-    root: info
-    org:
-      springframework:
-      web: info
-    com:
-      portoseg: debug
-
-management:
-  endpoint:
-    health:
-      show-components: always
-  endpoints:
-    web:
-      exposure:
-      include: actuator,logfile,metrics,health,info

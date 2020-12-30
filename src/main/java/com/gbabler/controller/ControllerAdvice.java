@@ -1,11 +1,9 @@
-package com.portoseg.controller;
+package com.gbabler.controller;
 
-import com.portoseg.exception.RestException;
-import com.portoseg.model.dto.ErrorResponse;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.portoseg.model.dto.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -61,16 +58,6 @@ public class ControllerAdvice {
         return defaultBadRequestError();
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<List<ErrorResponse>> handleConstraintViolationException(final ConstraintViolationException cve) {
-        List<ErrorResponse> errors = cve.getConstraintViolations().stream()
-                .map(constraint -> new ErrorResponse(constraint.getMessageTemplate(),
-                        getMessage(constraint.getMessageTemplate(),
-                                ((PathImpl) constraint.getPropertyPath()).getLeafNode().getName())))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<ErrorResponse>> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException methodArgumentNotValidException) {
@@ -99,23 +86,6 @@ public class ControllerAdvice {
         return new ResponseEntity<>(Collections.singletonList(ErrorResponse.builder()
                 .code("400.001")
                 .message(getMessage("400.001", e.getName())).build()), HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(RestException.class)
-    public ResponseEntity<Object> handleRestException(RestException restException) {
-        log.error(restException.getMessage(), restException);
-        if (restException.getResponseBodyCode() != null) {
-            return ResponseEntity.status(restException.getStatus())
-                    .body(ErrorResponse.builder()
-                            .code(restException.getResponseBodyCode())
-                            .message(getMessage(restException.getResponseBodyCode()))
-                            .build());
-        }
-        if (restException.getResponseBody() != null) {
-            return ResponseEntity.status(restException.getStatus())
-                    .body(restException.getResponseBody());
-        }
-        return ResponseEntity.status(restException.getStatus()).build();
     }
 
     private ResponseEntity<List<ErrorResponse>> defaultBadRequestError() {
