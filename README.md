@@ -19,7 +19,7 @@ mvn clean install
 It will download all dependencies to run this project.
 
 
-##About the project
+## About the project
 
 This project has been created to show you another method to do a partial update in your database without using a thousand if's.
 This way your code could be more readable and clean.
