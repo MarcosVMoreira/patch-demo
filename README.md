@@ -1,12 +1,25 @@
-# ATTENTION - TO-DOs BEFORE FIRST COMMIT
+## How to run?
 
-### If microservice is not using some files and dependencies, remember to remove them from POM and PROJECT;
+Clone this project to your local directory:
+```
+git clone https://github.com/gabrielbabler/patch-demo.git
+```
 
-# First steps 
-- Replace the name of the Example classes or delete them if you won't use.
+Then enter on the new directory:
+```
+cd patch-demo
+```
 
-- Set the docker-compose with the right dependencies.
+Then run:
 
-- Add the swagger on - src/main/resources/swagger
+```
+mvn clean install
+```
 
-- After complete all previous steps, replace this README with information about the project/ms.
+It will download all dependencies to run this project.
+
+
+##About the project
+
+This project has been created to show you another method to do a partial update in your database without using a thousand if's.
+This way your code could be more readable and clean.
