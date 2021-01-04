@@ -3,6 +3,8 @@ package com.gbabler.service;
 import com.gbabler.model.dto.ExampleRequestOne;
 import com.gbabler.model.dto.Gender;
 import com.gbabler.model.entity.ExampleEntityOne;
+import com.gbabler.repository.RepositoryOne;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceOne {
 
+    private final RepositoryOne repositoryOne = new RepositoryOne();
+
     public void partialUpdate(ExampleRequestOne requestOne) {
-        //Here would have a findById method (entity.findById())
-        ExampleEntityOne entityOne = ExampleEntityOne.builder()
-                .nome("Gabriel")
-                .idade(25)
-                .maiorDeIdade(true)
-                .genero(Gender.MALE)
-                .build();
+        ExampleEntityOne entityOne = repositoryOne.findById("123");
 
         log.info("[BEFORE-ENTITY ONE] Nome: {} Idade: {} Maior de idade?: {} Genero: {}",
                 entityOne.getNome(), entityOne.getIdade(), entityOne.getMaiorDeIdade(), entityOne.getGenero());
