@@ -1,12 +1,12 @@
 package com.gbabler.repository;
 
 import com.gbabler.model.dto.Residence;
-import com.gbabler.model.entity.ExampleEntityTwo;
+import com.gbabler.model.entity.PaymentDomain;
 
-public class RepositoryTwo {
+public class PaymentRepository {
 
-    public ExampleEntityTwo findById(String id) {
-        return ExampleEntityTwo.builder()
+    public PaymentDomain findById(String id) {
+        return PaymentDomain.builder()
                 .endereco("Rua Itajai")
                 .numero(223)
                 .tipoResidencia(Residence.HOUSE)

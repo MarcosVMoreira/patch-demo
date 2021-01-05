@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class ExampleEntityOne {
+public class UserDomain {
 
     private String nome;
     private Integer idade;

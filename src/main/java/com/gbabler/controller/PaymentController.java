@@ -1,9 +1,7 @@
 package com.gbabler.controller;
 
-import com.gbabler.model.dto.ExampleRequestOne;
-import com.gbabler.model.dto.ExampleRequestTwo;
-import com.gbabler.service.ServiceOne;
-import com.gbabler.service.ServiceTwo;
+import com.gbabler.model.dto.PaymentRequest;
+import com.gbabler.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,15 +11,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/controllerTwo")
+@RequestMapping("/payments")
 @RequiredArgsConstructor
-public class ControllerTwo {
+public class PaymentController {
 
-    private final ServiceTwo serviceTwo;
+    private final PaymentService paymentService;
 
     @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void partialUpdate(@RequestBody ExampleRequestTwo requestTwo) {
-        serviceTwo.partialUpdate(requestTwo);
+    public void partialUpdate(@RequestBody PaymentRequest paymentRequest) {
+        paymentService.partialUpdate(paymentRequest);
     }
 }

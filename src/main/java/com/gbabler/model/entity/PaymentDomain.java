@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class ExampleEntityTwo {
+public class PaymentDomain {
 
     private String endereco;
     private Integer numero;

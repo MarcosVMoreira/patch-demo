@@ -1,11 +1,11 @@
 package com.gbabler.repository;
 
 import com.gbabler.model.dto.Gender;
-import com.gbabler.model.entity.ExampleEntityOne;
+import com.gbabler.model.entity.UserDomain;
 
-public class RepositoryOne {
-    public ExampleEntityOne findById(String id) {
-        return ExampleEntityOne.builder()
+public class UserRepository {
+    public UserDomain findById(String id) {
+        return UserDomain.builder()
                 .nome("Gabriel")
                 .idade(25)
                 .maiorDeIdade(true)

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ExampleRequestTwo {
+public class PaymentRequest {
 
     private String address;
     private Integer number;
