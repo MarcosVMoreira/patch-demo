@@ -1,5 +1,6 @@
 package com.gbabler.model.dto;
 
+import com.gbabler.enumeration.Residence;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

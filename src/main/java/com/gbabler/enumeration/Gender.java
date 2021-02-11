@@ -1,4 +1,4 @@
-package com.gbabler.model.dto;
+package com.gbabler.enumeration;
 
 public enum Gender {
 

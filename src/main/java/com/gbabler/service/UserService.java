@@ -4,6 +4,7 @@ import com.gbabler.model.dto.UserRequest;
 import com.gbabler.model.entity.UserDomain;
 import com.gbabler.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -12,21 +13,37 @@ public class UserService {
 
     private final UserRepository userRepository = new UserRepository();
 
-    public void partialUpdate(UserRequest requestOne, String userId) {
+    /**
+     * Check if the id exists
+     * Change the values if present
+     * Save it
+     */
+
+    public void partialUpdate(UserRequest userRequest, String userId) {
         UserDomain userDomain = userRepository.findById(userId);
 
         log.info("[BEFORE-ENTITY ONE] Nome: {} Idade: {} Maior de idade?: {} Genero: {}",
-                userDomain.getNome(), userDomain.getIdade(), userDomain.getMaiorDeIdade(), userDomain.getGenero());
+                userDomain.getName(), userDomain.getAge(), userDomain.getIsAdult(), userDomain.getGender());
 
-        new PatchImpl<>(requestOne, userDomain)
-                .updateIfPresent(UserRequest::getName, UserDomain::setNome)
-                .updateIfPresent(UserRequest::getAge, UserDomain::setIdade)
-                .updateIfPresent(UserRequest::getIsAdult, UserDomain::setMaiorDeIdade)
-                .updateIfPresent(UserRequest::getGender, UserDomain::setGenero);
+        if(!StringUtils.isEmpty(userRequest.getName())) {
+            userDomain.setName(userRequest.getName());
+        }
+
+        if(userRequest.getAge() != null) {
+            userDomain.setAge(userRequest.getAge());
+        }
+
+        if(userRequest.getGender() != null) {
+            userDomain.setGender(userRequest.getGender());
+        }
+
+        if(userRequest.getIsAdult() != null) {
+            userDomain.setIsAdult(userRequest.getIsAdult());
+        }
 
         log.info("[AFTER-ENTITY ONE] Nome: {} Idade: {} Maior de idade?: {} Genero: {}",
-                userDomain.getNome(), userDomain.getIdade(), userDomain.getMaiorDeIdade(), userDomain.getGenero());
+                userDomain.getName(), userDomain.getAge(), userDomain.getIsAdult(), userDomain.getGender());
 
-        //Here we would save the updated entity on the database.
+        userRepository.save(userDomain);
     }
 }

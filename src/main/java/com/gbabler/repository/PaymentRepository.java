@@ -1,6 +1,6 @@
 package com.gbabler.repository;
 
-import com.gbabler.model.dto.Residence;
+import com.gbabler.enumeration.Residence;
 import com.gbabler.model.entity.PaymentDomain;
 
 public class PaymentRepository {
@@ -12,4 +12,6 @@ public class PaymentRepository {
                 .tipoResidencia(Residence.HOUSE)
                 .build();
     }
+
+    public void save(PaymentDomain paymentDomain){}
 }

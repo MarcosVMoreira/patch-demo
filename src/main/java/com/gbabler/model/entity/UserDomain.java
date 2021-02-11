@@ -1,6 +1,6 @@
 package com.gbabler.model.entity;
 
-import com.gbabler.model.dto.Gender;
+import com.gbabler.enumeration.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +10,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserDomain {
 
-    private String nome;
-    private Integer idade;
-    private Boolean maiorDeIdade;
-    private Gender genero;
+    private String name;
+    private Integer age;
+    private Boolean isAdult;
+    private Gender gender;
 
 }

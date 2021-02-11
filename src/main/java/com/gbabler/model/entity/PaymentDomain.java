@@ -1,6 +1,6 @@
 package com.gbabler.model.entity;
 
-import com.gbabler.model.dto.Residence;
+import com.gbabler.enumeration.Residence;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
