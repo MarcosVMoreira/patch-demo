@@ -25,17 +25,10 @@ public class PaymentService {
         log.info("[BEFORE - PAYMENT ENTITY] Endereco: {} Numero: {} Tipo de Residência: {} ",
                 paymentDomain.getEndereco(), paymentDomain.getNumero(), paymentDomain.getTipoResidencia());
 
-        if(!StringUtils.isEmpty(paymentRequest.getAddress())) {
-            paymentDomain.setEndereco(paymentRequest.getAddress());
-        }
-
-        if(paymentRequest.getNumber() != null) {
-            paymentDomain.setNumero(paymentRequest.getNumber());
-        }
-
-        if(paymentRequest.getResidence() != null) {
-            paymentDomain.setTipoResidencia(paymentRequest.getResidence());
-        }
+        new PatchImpl<>(paymentRequest, paymentDomain)
+                .updateIfPresent(PaymentRequest::getAddress, PaymentDomain::setEndereco)
+                .updateIfPresent(PaymentRequest::getNumber, PaymentDomain::setNumero)
+                .updateIfPresent(PaymentRequest::getResidence, PaymentDomain::setTipoResidencia);
 
         log.info("[AFTER - PAYMENT ENTITY] Endereco: {} Numero: {} Tipo de Residência: {}",
                 paymentDomain.getEndereco(), paymentDomain.getNumero(), paymentDomain.getTipoResidencia());

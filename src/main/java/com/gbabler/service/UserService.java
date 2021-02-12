@@ -25,21 +25,11 @@ public class UserService {
         log.info("[BEFORE-ENTITY ONE] Nome: {} Idade: {} Maior de idade?: {} Genero: {}",
                 userDomain.getName(), userDomain.getAge(), userDomain.getIsAdult(), userDomain.getGender());
 
-        if(!StringUtils.isEmpty(userRequest.getName())) {
-            userDomain.setName(userRequest.getName());
-        }
-
-        if(userRequest.getAge() != null) {
-            userDomain.setAge(userRequest.getAge());
-        }
-
-        if(userRequest.getGender() != null) {
-            userDomain.setGender(userRequest.getGender());
-        }
-
-        if(userRequest.getIsAdult() != null) {
-            userDomain.setIsAdult(userRequest.getIsAdult());
-        }
+        new PatchImpl<>(userRequest, userDomain)
+                .updateIfPresent(UserRequest::getName, UserDomain::setName)
+                .updateIfPresent(UserRequest::getGender, UserDomain::setGender)
+                .updateIfPresent(UserRequest::getAge, UserDomain::setAge)
+                .updateIfPresent(UserRequest::getIsAdult, UserDomain::setIsAdult);
 
         log.info("[AFTER-ENTITY ONE] Nome: {} Idade: {} Maior de idade?: {} Genero: {}",
                 userDomain.getName(), userDomain.getAge(), userDomain.getIsAdult(), userDomain.getGender());
